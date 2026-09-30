@@ -1,11 +1,11 @@
 import Link from 'next/link';
+import { fetchProductsSafely } from '@/lib/api';
 
 export default async function Store() {
   // Solo obtenemos electrónicos para simular una Apple Store
-  const res = await fetch('https://fakestoreapi.com/products/category/electronics', {
+  const products = await fetchProductsSafely('https://fakestoreapi.com/products/category/electronics', {
     cache: 'force-cache'
   });
-  const products = await res.json();
 
   return (
     <div className="min-h-screen bg-[#f5f5f7] pt-16 pb-20 text-[#1d1d1f]">

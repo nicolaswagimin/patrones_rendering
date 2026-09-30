@@ -1,12 +1,12 @@
 import Link from 'next/link';
+import { fetchProductsSafely } from '@/lib/api';
 
 export const revalidate = 10; // ISR: Se actualiza en background cada 10s
 
 export default async function Deals() {
-  const res = await fetch('https://fakestoreapi.com/products?limit=6', {
+  const products = await fetchProductsSafely('https://fakestoreapi.com/products?limit=6', {
     next: { revalidate: 10 }
   });
-  const products = await res.json();
   
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white pt-32 pb-20 px-4 relative overflow-hidden">

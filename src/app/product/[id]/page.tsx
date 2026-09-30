@@ -1,14 +1,14 @@
 import Link from 'next/link';
+import { fetchProductSafely } from '@/lib/api';
 
 // SSR: Renderizado bajo demanda para stock en tiempo real
 export default async function ProductPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   
   // no-store garantiza que no haya caché, obtenemos el dato real en cada petición
-  const res = await fetch(`https://fakestoreapi.com/products/${params.id}`, {
+  const product = await fetchProductSafely(params.id, {
     cache: 'no-store'
   });
-  const product = await res.json();
   
   // Simulamos un inventario en base de datos
   const realTimeStock = Math.floor(Math.random() * 8);

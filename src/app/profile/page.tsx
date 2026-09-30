@@ -9,8 +9,8 @@ export default function ProfileCSR() {
     const fetchUser = async () => {
       try {
         await new Promise(resolve => setTimeout(resolve, 600)); // Simulamos carga de red
-        const res = await fetch('https://fakestoreapi.com/users/3');
-        const data = await res.json();
+        const { fetchUserSafely } = await import('@/lib/api');
+        const data = await fetchUserSafely();
         setUser(data);
       } catch (e) {
         console.error(e);
